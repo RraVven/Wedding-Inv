@@ -38,12 +38,16 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;           /* cadangan untuk browser lama */
+  height: 100lvh;          /* 👉 tinggi tetap, tidak ikut address bar HP */
   z-index: -1;
   background: url("IMG/asdfsaf.PNG") center / cover no-repeat;
+  transform: translateZ(0);
 }
 .band { background: transparent; }
-
 
 .wrap {
   background: rgba(255, 255, 255, .3);   /* 👉 OPACITY KOTAK: ubah angka .55 */
