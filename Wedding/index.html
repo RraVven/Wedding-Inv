@@ -15,7 +15,7 @@
 <style>
 :root {
   --bg:#f2f6f1; --surface:#e3ece3; --ink:#1b3a33; --muted:#5a7068;
-  --accent:#a07a37; --on-accent:#fff;
+  --accent:#a07a37; --on-accent:#ffffff;
   --serif:"Times New Roman",Georgia,"Times New Roman",serif;
   --sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
   --script:"Great Vibes",cursive;    /* 👉 FONT NAMA PENGANTIN, ganti nama font di sini */
@@ -44,13 +44,12 @@ body::before {
   height: 100vh;           /* cadangan untuk browser lama */
   height: 100lvh;          /* 👉 tinggi tetap, tidak ikut address bar HP */
   z-index: -1;
-  background: url("IMG/asdfsaf.png") center / cover no-repeat;
+  background: url("IMG/car.PNG") center / cover no-repeat;
   transform: translateZ(0);
 }
 .band { background: transparent; }
-
 .wrap {
-  background: rgba(255, 255, 255, .3);   /* 👉 OPACITY KOTAK: ubah angka .55 */
+  background: rgba(255, 255, 255, .8);   /* 👉 OPACITY KOTAK: ubah angka .55 */
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, .6);
@@ -60,18 +59,18 @@ body::before {
   padding: 3rem 1.5rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, .15);
 
-  color: #fbfbfb;                         /* 👉 WARNA FONT di dalam kotak (judul + isi) */
+  color: #4b1828;                         /* 👉 WARNA FONT di dalam kotak (judul + isi) */
 }
 /* Versi HP */
 @media (max-width: 639px) {
   body::before {
-    background-image: url("IMG/asdsad.png");
+    background-image: url("IMG/WhatsApp Image 2026-10-31 at 12.34.37.jpeg");
   }
 }
 
 /* HP */
 @media (max-width: 639px) {
-   body::before { background-image: url("IMG/asdsad.png"); }}
+   body::before { background-image: url("IMG/WhatsApp Image 2026-10-31 at 12.34.37.jpeg"); }}
   body.locked { overflow:hidden; }
   :focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
   p { max-width:34rem; margin-inline:auto; }
@@ -342,8 +341,8 @@ body::before {
 /* 👉 WARNA FONT PER BAGIAN */
 .muted,
 #countdown small,
-.events .muted { color: #ffffff; }     /* alamat, keterangan, label countdown */
-footer, footer b { color: #ffffff; }   /* footer */
+.events .muted { color: #000000; }     /* alamat, keterangan, label countdown */
+footer, footer b { color: #000000; }   /* footer */
 #nav a { color: #1b3a33; }             /* menu bawah: tetap gelap karena latarnya terang */
 #music { color: #1b3a33; }             /* tombol musik: tetap gelap */
 /* 👉 FONT HEADER SAJA */
@@ -438,6 +437,104 @@ h2, h3 {
   .events { grid-template-columns: repeat(3, 1fr) !important; gap: 1.5rem; }
   .gallery { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 }
+/* 👉 WARNA BOX: #4B1828 (dusty pink) */
+:root { --box: 176, 127, 142; }              /* 👉 kode RGB dari #B07F8E, ganti kalau mau warna lain */
+
+#countdown div,
+.events > div,
+.events > div + div,
+.gift {
+background-color: rgba(75, 24, 40, .75);   /* 👉 .75 = kepekatan: .9 lebih solid, .5 lebih tipis */  border: 1px solid rgba(255, 255, 255, .5);}
+  /* 👉 TEKS DI DALAM BOX JADI TERANG */
+#countdown b,
+.events h3,
+.events .when { color: #f5e6d0; }            /* 👉 krem lembut, bisa diganti #fff untuk putih */
+#countdown small,
+.events .muted { color: #fff; }
+/* 👉 ORNAMEN ATAS KOTAK: tidak melar, selalu menempel di tepi atas kotak */
+/* 👉 PENGATURAN ORNAMEN (ubah angka di sini saja) */
+/* 👉 ORNAMEN SEMUA KOTAK */
+:root {
+  --atas-w: min(92vw, 30rem);
+  --atas-r: 3.75;
+  --bawah-w: min(92vw, 30rem);
+  --bawah-r: 3.75;
+  --tumpang: 2rem;
+  --ruang: 1.5rem;
+
+  --atas-y: 0rem;      /* 👉 POSISI BINGKAI ATAS: negatif = naik, positif = turun */
+  --bawah-y: 0.2rem;     /* 👉 POSISI BINGKAI BAWAH: negatif = naik, positif = turun */
+}@media (min-width: 1024px) {
+  :root { --atas-w: 46rem; --bawah-w: 46rem; 
+   --tumpang: 3.5rem;
+  }    /* 👉 ukuran di laptop */
+}
+
+.wrap {
+  position: relative;
+  /* ruang atas = ornamen atas + ornamen bawah kotak sebelumnya + jarak aman */
+  margin-top: calc(var(--atas-w) / var(--atas-r) + var(--bawah-w) / var(--bawah-r) - 2 * var(--tumpang) + var(--ruang));
+  margin-bottom: 0;
+}
+#ayatsuci .wrap {                 /* kotak pertama */
+  margin-top: calc(var(--atas-w) / var(--atas-r) - var(--tumpang) + 1rem);
+}
+#wishes .wrap {                   /* kotak terakhir */
+  margin-bottom: calc(var(--bawah-w) / var(--bawah-r) - var(--tumpang) + 1rem);
+}
+
+/* ORNAMEN ATAS */
+.wrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - var(--tumpang));
+  width: var(--atas-w);
+  aspect-ratio: var(--atas-r);
+  transform: translate(-50%, var(--atas-y));
+  background: url("IMG/atass.png") top center / 100% auto no-repeat;
+  -webkit-mask-image: linear-gradient(#000 75%, transparent);
+  mask-image: linear-gradient(#000 75%, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ORNAMEN BAWAH */
+.wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(100% - var(--tumpang));
+  width: var(--bawah-w);
+  aspect-ratio: var(--bawah-r);
+transform: translate(-50%, var(--bawah-y));
+  background: url("IMG/bawahh.png") bottom center / 100% auto no-repeat;
+  -webkit-mask-image: linear-gradient(transparent, #000 25%);
+  mask-image: linear-gradient(transparent, #000 25%);
+  pointer-events: none;
+  z-index: 2;
+}
+/* 👉 FADE IN & FADE OUT TIAP SLIDE (versi lebih lambat) */
+.fx .wrap {
+  opacity: 0;
+  transform: translateY(70px);                                 /* 👉 jarak naik saat muncul, makin besar makin terlihat */
+  transition: opacity 1.1s ease, transform 1.1s ease;          /* 👉 kecepatan FADE OUT (saat keluar layar) */
+}
+.fx .wrap.tampil {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1.8s cubic-bezier(.22, .61, .36, 1) .15s,
+              transform 1.8s cubic-bezier(.22, .61, .36, 1) .15s;   /* 👉 kecepatan FADE IN: 1.8s, jeda .15s */
+}
+
+/* 👉 isi di dalam kotak (judul, foto, teks) ikut diperlambat */
+.rv {
+  transition: opacity 1.5s ease var(--d, 0s), transform 1.5s ease var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx .wrap { opacity: 1; transform: none; transition: none; }
+}
 </style>
 </head>
 <body class="locked">
@@ -522,7 +619,7 @@ h2, h3 {
 </main>
 
 <footer>
-  <p>Terima kasih atas doa dan kehadiran Anda.</p>
+  <p>Design by HIM Collection.</p>
   <p><b id="f-names"></b></p>
 </footer>
 
@@ -537,11 +634,11 @@ const C = {
   /* Foto: taruh file di folder "foto" di samping file ini, lalu samakan namanya.
      Kalau file belum ada, slot tampil sebagai kotak polos (tidak error). */
   fotoCover: "IMG/gzgdzf.jpg",
-  musik: "musik/lagu.mp3",              // kosongkan "" kalau tidak pakai musik
+  musik: "IMG/Risk It All - Bruno Mars - Brendan Ross Saxophone version.mp4",              // kosongkan "" kalau tidak pakai musik
 
 mempelai: [
-  { panggilan: "Pangestu",   nama: "Sutrio Pangestu Agustiwan .", ortu: "Putra dari Bapak Sudarman & Ibu Yulia Yentri", ig: "", foto: "IMG/sadasdfa.png" },
-  { panggilan: "Witria", nama: "Witria Sugenda Sari",    ortu: "Putri dari Bapak Samsuja & Ibu Gusmadewita", ig: "", foto: "IMG/asjgdiasg.png" }
+  { panggilan: "Pangestu",   nama: "Sutrio Pangestu Agustiwan", ortu: "Putra dari Bapak Sudarman & Ibu Yulia Yentri", ig: "", foto: "IMG/yayaya (1).png" },
+  { panggilan: "Witria", nama: "Witria Sugenda Sari",    ortu: "Putri dari Bapak Samsuja & Ibu Gusmadewita", ig: "", foto: "IMG/yayaya (2).png" }
 ],
 tanggal: "2026-11-13",                 // tanggal acara pertama (akad)
 tanggalCover: "13 - 16 November 2026", // 👉 teks tanggal yang tampil di COVER
@@ -565,16 +662,16 @@ acara: [
   live: "",                             // link YouTube, kosongkan kalau tidak ada
 
   cerita: [                             // hapus semua isi [] kalau tidak mau bagian ini
-    { judul: "Awal bertemu",     teks: "Tulis cerita singkat kalian di sini.", foto: "foto/cerita1.jpg" },
-    { judul: "Menjalin hubungan", teks: "Tulis cerita singkat kalian di sini.", foto: "foto/cerita2.jpg" },
-    { judul: "Menuju pelaminan",  teks: "Tulis cerita singkat kalian di sini.", foto: "" }
+    { judul: "Awal bertemu",     teks: "Tidak ada yang kebetulan di dunia ini. Semua sudah tersusun rapi oleh Sang Maha Kuasa, kita tidak bisa memilih kepada siapa kita akan jatuh cinta. Kami bertemu pada akhir tahun 2025", foto: "IMG/oke3.png" },
+    { judul: "Menjalin hubungan", teks: "Kami memutuskan untuk menjalin hubungan pada 13 November 2025. Tidak ada yang menyangka bahwa pertemuan ini membawa kami pada sebuah ikatan cinta yang suci hingga hari ini.", foto: "IMG/oke 2.png" },
+    { judul: "Menuju pelaminan",  teks: "Percayalah, bukan karena bertemu lalu berjodoh, melainkan karena berjodohlah kami dipertemukan. Atas izin Allah SWT serta restu dan ridho kedua orang tua, kami memutuskan untuk mengikrarkan janji suci pernikahan pada 13 November 2026, serta memulai kisah baru dalam ikatan pernikahan yang senantiasa diberkahi oleh Allah SWT.", foto: "IMG/oke.png" }
   ],
 
-  galeri: ["IMG/iya (1).png","IMG/iya (2).png","IMG/iya (3).png","IMG/iya (4).png","IMG/WhatsApp Image 2026-10-28 at 02.31.52.jpeg","IMG/Artboard 5.png"],
+  galeri: ["IMG/iya (1).png","IMG/iya (2).png","IMG/iya (3).png","IMG/iya (4).png","IMG/WhatsApp Image 2026-10-28 at 02.31.52.jpeg","IMG/Artboard 5.PNG"],
 
 rekening: [
-  { bank: "BCA", nomor: "1234567890", nama: "Sutrio Pangestu Agustiwan", kartu: "IMG/kartu-bca.png" },   // 👉 kartu = foto latar (opsional)
-  { bank: "BRI", nomor: "0987654321", nama: "Witria Sugenda Sari" }                                        // tanpa foto = pakai warna
+  { bank: "BCA", nomor: "554201052519535", nama: "Witria sugenda sari", kartu: "IMG/kartu-bca.png" },   // 👉 kartu = foto latar (opsional)
+  { bank: "BRI", nomor: "1740507623", nama: "Sutrio pangestu agustiwan" }                                        // tanpa foto = pakai warna
 ],
   nomorWA: "6281234567890"              // awali 62, tanpa + atau 0
 };
@@ -712,6 +809,12 @@ $("open").addEventListener("click", () => {
 // Muncul saat di-scroll
 const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15 });
 document.querySelectorAll(".rv").forEach((n) => io.observe(n));
+// Fade in & fade out tiap slide
+document.documentElement.classList.add("fx");
+const ioSlide = new IntersectionObserver((es) => es.forEach((e) => {
+  e.target.classList.toggle("tampil", e.isIntersecting);      // masuk layar = muncul, keluar layar = memudar
+}), { rootMargin: "-20% 0px -20% 0px", threshold: 0 });       // 👉 20% = seberapa dalam kotak harus masuk layar sebelum muncul
+document.querySelectorAll("main .wrap").forEach((n) => ioSlide.observe(n));
 
 // Hitung mundur
 const target = new Date(C.countdownKe).getTime(), sEl = $("s");
