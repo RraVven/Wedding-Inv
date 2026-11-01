@@ -527,7 +527,7 @@ background-color: rgba(75, 24, 40, .75);   /* 👉 .75 = kepekatan: .9 lebih sol
 /* VERSI LAPTOP */
 @media (min-width: 1024px) {
   .wrap::after {
-    background-image: url("IMG/laptop4.png");
+    background-image: url("IMG/Laptop4.png");
   }
 }
 /* 👉 FADE IN & FADE OUT TIAP SLIDE (versi lebih lambat) */
@@ -609,6 +609,22 @@ body { padding-bottom: 4.5rem; }               /* 👉 tadinya 5.5rem; jangan di
     -webkit-mask-image: linear-gradient(transparent, #000 25%);    /* 👉 makin kecil angka, pudar makin tipis */
     mask-image: linear-gradient(transparent, #000 25%);
   }
+}
+/* 👉 SLIDESHOW FOTO COVER */
+#cover .bg { overflow: hidden; }
+#cover .bg .cslide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease;         /* 👉 kecepatan fade in & fade out */
+}
+#cover .bg .cslide.aktif { opacity: 1; }
+#cover .bg .cslide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 </style>
@@ -709,7 +725,14 @@ body { padding-bottom: 4.5rem; }               /* 👉 tadinya 5.5rem; jangan di
 const C = {
   /* Foto: taruh file di folder "foto" di samping file ini, lalu samakan namanya.
      Kalau file belum ada, slot tampil sebagai kotak polos (tidak error). */
-  fotoCover: "IMG/gzgdzf.jpg",
+fotoCover: [
+  "IMG/gzgdzf.jpg",
+  "IMG/WhatsApp Image 2026-10-28 at 02.31.53 d.jpeg",     // 👉 ganti dengan nama file aslimu
+  "IMG/oke3.png",
+  "IMG/oke.png",
+  "IMG/oke2.png",
+  "IMG/IMG_4467.JPG"
+],
   musik: "IMG/Risk It All - Bruno Mars - Brendan Ross Saxophone version.mp4",              // kosongkan "" kalau tidak pakai musik
 
 mempelai: [
@@ -781,7 +804,24 @@ $("c-date").textContent = tgl;
 $("f-names").textContent = A.nama + " & " + B.nama;
 $("ayat").textContent = C.ayat; $("ayat-src").textContent = C.ayatSumber;
 document.title = "Undangan " + A.nama + " & " + B.nama;
-$("cover-bg").append(photo(C.fotoCover, "")); $("cover-bg").firstChild.style.position = "absolute"; $("cover-bg").firstChild.style.inset = "0"; $("cover-bg").firstChild.style.background = "none";
+// Cover: slideshow foto (fade in & fade out)
+const fotoList = Array.isArray(C.fotoCover) ? C.fotoCover : [C.fotoCover];
+const coverBg = $("cover-bg");
+fotoList.forEach((src, n) => {
+  const s = el("div", "cslide" + (n === 0 ? " aktif" : ""));
+  const i = new Image(); i.alt = "";
+  i.onerror = () => s.remove();          // kalau file tidak ada, slide dilewati
+  i.src = src;
+  s.append(i); coverBg.append(s);
+});
+let ci = 0;
+setInterval(() => {
+  const s = coverBg.querySelectorAll(".cslide");
+  if (s.length < 2) return;
+  s[ci % s.length].classList.remove("aktif");
+  ci = (ci + 1) % s.length;
+  s[ci].classList.add("aktif");
+}, 5000);                                // 👉 5000 = ganti foto tiap 5 detik
 
 // Mempelai
 C.mempelai.forEach((p, i) => {
