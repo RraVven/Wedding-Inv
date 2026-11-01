@@ -451,9 +451,7 @@ background-color: rgba(75, 24, 40, .75);   /* 👉 .75 = kepekatan: .9 lebih sol
 .events .when { color: #f5e6d0; }            /* 👉 krem lembut, bisa diganti #fff untuk putih */
 #countdown small,
 .events .muted { color: #fff; }
-/* 👉 ORNAMEN ATAS KOTAK: tidak melar, selalu menempel di tepi atas kotak */
-/* 👉 PENGATURAN ORNAMEN (ubah angka di sini saja) */
-/* 👉 ORNAMEN SEMUA KOTAK */
+
 :root {
   --atas-w: min(92vw, 30rem);
   --atas-r: 3.75;
@@ -464,10 +462,14 @@ background-color: rgba(75, 24, 40, .75);   /* 👉 .75 = kepekatan: .9 lebih sol
 
   --atas-y: 0rem;      /* 👉 POSISI BINGKAI ATAS: negatif = naik, positif = turun */
   --bawah-y: 0.2rem;     /* 👉 POSISI BINGKAI BAWAH: negatif = naik, positif = turun */
-}@media (min-width: 1024px) {
-  :root { --atas-w: 46rem; --bawah-w: 46rem; 
-   --tumpang: 3.5rem;
-  }    /* 👉 ukuran di laptop */
+
+@media (min-width: 1024px) {
+  :root {
+    --atas-w: 64rem;     /* 👉 samakan dengan .wrap { max-width: 64rem } */
+    --bawah-w: 64rem;
+    --tumpang: 3.5rem;
+  }
+}
 }
 
 .wrap {
@@ -492,11 +494,18 @@ background-color: rgba(75, 24, 40, .75);   /* 👉 .75 = kepekatan: .9 lebih sol
   width: var(--atas-w);
   aspect-ratio: var(--atas-r);
   transform: translate(-50%, var(--atas-y));
-  background: url("IMG/atass.png") top center / 100% auto no-repeat;
-  -webkit-mask-image: linear-gradient(#000 75%, transparent);
-  mask-image: linear-gradient(#000 75%, transparent);
+
+  background: url("IMG/Artboard 1.png") top center / 100% auto no-repeat;
+
   pointer-events: none;
   z-index: 2;
+}
+
+/* VERSI LAPTOP */
+@media (min-width: 1024px) {
+  .wrap::before {
+    background-image: url("IMG/Laptop3.png");
+  }
 }
 
 /* ORNAMEN BAWAH */
@@ -507,12 +516,19 @@ background-color: rgba(75, 24, 40, .75);   /* 👉 .75 = kepekatan: .9 lebih sol
   top: calc(100% - var(--tumpang));
   width: var(--bawah-w);
   aspect-ratio: var(--bawah-r);
-transform: translate(-50%, var(--bawah-y));
-  background: url("IMG/bawahh.png") bottom center / 100% auto no-repeat;
-  -webkit-mask-image: linear-gradient(transparent, #000 25%);
-  mask-image: linear-gradient(transparent, #000 25%);
+  transform: translate(-50%, var(--bawah-y));
+
+  background: url("IMG/Artboard 2.png") bottom center / 100% auto no-repeat;
+
   pointer-events: none;
   z-index: 2;
+}
+
+/* VERSI LAPTOP */
+@media (min-width: 1024px) {
+  .wrap::after {
+    background-image: url("IMG/laptop4.png");
+  }
 }
 /* 👉 FADE IN & FADE OUT TIAP SLIDE (versi lebih lambat) */
 .fx .wrap {
@@ -535,6 +551,66 @@ transform: translate(-50%, var(--bawah-y));
 @media (prefers-reduced-motion: reduce) {
   .fx .wrap { opacity: 1; transform: none; transition: none; }
 }
+/* 👉 FOOTER: warna terang + font Great Vibes + tidak scroll kejauhan */
+footer {
+  padding: 1rem 1.5rem 0.5rem;                 /* 👉 tadinya 3rem, dikecilkan agar tidak scroll terlalu jauh */
+  font-family: "Great Vibes", cursive;
+  color: #ffffff;                              /* 👉 warna "Design by HIM Collection." */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .75);   /* 👉 bayangan agar tetap jelas di atas bunga/lilin */
+}
+footer p {
+  font-size: 1.7rem;                           /* 👉 Great Vibes perlu ukuran lebih besar */
+  max-width: none;
+}
+footer b {
+  font-family: "Great Vibes", cursive;         /* 👉 ganti nama font di sini */
+  font-weight: 400;
+  font-size: 2.4rem;                           /* 👉 ukuran nama pengantin */
+  color: #f5e6d0;                              /* 👉 warna nama pengantin */
+}
+
+/* 👉 BATAS SCROLL BAWAH */
+body { padding-bottom: 4.5rem; }               /* 👉 tadinya 5.5rem; jangan di bawah ±4rem, nanti tertutup menu bawah */
+
+@media (min-width: 1024px) {
+  :root {
+    --atas-w: 64rem;
+    --atas-r: 2.5;
+
+    --bawah-w: 64rem;
+    --bawah-r: 2.5;
+
+    --tumpang: 12rem;
+  }
+
+  .wrap::before,
+  .wrap::after {
+    width: var(--atas-w);
+    background-size: 100% auto !important;
+  }
+}
+/* 👉 PUDAR ORNAMEN: VERSI HP (default) */
+.wrap::before {
+  -webkit-mask-image: linear-gradient(#000 100%, transparent);
+  mask-image: linear-gradient(#000 100%, transparent);
+}
+.wrap::after {
+  -webkit-mask-image: linear-gradient(transparent, #000 0%);
+  mask-image: linear-gradient(transparent, #000 0%);
+}
+
+/* 👉 PUDAR ORNAMEN: VERSI LAPTOP */
+@media (min-width: 1024px) {
+  .wrap::before {
+    -webkit-mask-image: linear-gradient(#000 75%, transparent);   /* 👉 makin besar angka, pudar makin tipis */
+    mask-image: linear-gradient(#000 75%, transparent);
+  }
+  .wrap::after {
+    -webkit-mask-image: linear-gradient(transparent, #000 25%);    /* 👉 makin kecil angka, pudar makin tipis */
+    mask-image: linear-gradient(transparent, #000 25%);
+  }
+}
+
 </style>
 </head>
 <body class="locked">
@@ -646,17 +722,17 @@ countdownKe: "2026-11-13T09:00:00+07:00",   // 👉 hitung mundur ke akad (bulan
 
 acara: [
   { judul: "Akad Nikah",
-    tanggal: "2026-11-13", jam: "09.00 WIB - selesai",
-    tempat: "Nama Gedung", alamat: "Alamat lengkap", maps: "" },
+    tanggal: "2026-11-13", jam: "10.00 WIB - selesai",
+    tempat: "Masjid Baitul Ikhlas", alamat: "Alamat lengkap", maps: "https://www.google.com/maps/place/Masjid+Baitul+Ikhlas+Tanjung+Balik+Lembah+Gumanti/@-1.0712701,100.8242111,17z/data=!4m6!3m5!1s0x2e2b5b3251387907:0x21f8ed939337e294!8m2!3d-1.0712762!4d100.8242147!16s%2Fg%2F11gxw0qqmv?hl=en&entry=ttu&g_ep=EgoyMDI2MTAyOC4wIKXMDSoASAFQAw%3D%3D" },
 
   { judul: "Resepsi Pihak Perempuan",
-    tanggal: "2026-11-15", jam: "00.00 WIB - selesai",   // 👉 isi jam aslinya
-    tempat: "Kediaman Mempelai Wanita", alamat: "Alamat lengkap", maps: "" },
+    tanggal: "2026-11-15", jam: "10.00 WIB - selesai",   // 👉 isi jam aslinya
+    tempat: "Kediaman Mempelai Wanita", alamat: "Alamat lengkap", maps: "https://www.google.com/maps/place/Masjid+Baitul+Ikhlas+Tanjung+Balik+Lembah+Gumanti/@-1.0712701,100.8242111,17z/data=!4m6!3m5!1s0x2e2b5b3251387907:0x21f8ed939337e294!8m2!3d-1.0712762!4d100.8242147!16s%2Fg%2F11gxw0qqmv?hl=en&entry=ttu&g_ep=EgoyMDI2MTAyOC4wIKXMDSoASAFQAw%3D%3D" },
 
   { judul: "Resepsi Pihak Laki-laki",
-    tanggal: "2026-11-16", jam: "00.00 WIB - selesai",   // 👉 isi jam aslinya
-    tempat: "Kediaman Mempelai Pria", alamat: "Alamat lengkap", maps: "" }
-],  ayat: "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.",
+    tanggal: "2026-11-16", jam: "10.00 WIB - selesai",   // 👉 isi jam aslinya
+    tempat: "Kediaman Mempelai Pria", alamat: "Alamat lengkap", maps: "https://www.google.com/maps/search/Pasar%20Talang%20Babungo/@-1.0934085845947266,100.87731170654297,17z?hl=en" }
+],  ayat: "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tentram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.",
   ayatSumber: "QS. Ar-Rum: 21",
 
   live: "",                             // link YouTube, kosongkan kalau tidak ada
