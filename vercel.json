@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/pangestu-witria", "destination": "/index.html" }
+  ]
+}
